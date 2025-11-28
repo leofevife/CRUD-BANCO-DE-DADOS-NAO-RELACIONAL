@@ -1,0 +1,70 @@
+erDiagram
+    USUARIOS {
+        id int PK "not null"
+        nome String "not null"
+        cpf String "not null"
+        telefone String "not null"
+        senha String "not null"
+        tipo String "not null"
+    }
+    CLIENTES {
+        id_Cliente int PK,FK ""
+        moto_modelo String ""
+        moto_Ano int ""
+        moto_Placa String ""
+        }
+
+    FUNCIONARIOS {
+        id_Funcionario int PK,FK ""
+        salario float ""
+    }
+
+    ORDEM_DE_SERVICOS {
+        id int PK "not null"
+	    status String "not null"
+	    id_Funcionario int FK "not null"
+	    id_Cliente int FK "not null"
+	    valorTotal float "not null"
+	    valorPecas float "not null"
+        cargaHoraria int  "not null"
+        custoHH float "not null"
+        
+    }
+
+    PECAS {
+        ID_Peca int PK "not null"
+        nomePeca String "not null"
+	    valorPecas float "0"
+	    unid String "not null"
+	    quat_Pecas int "0"
+	    valor_unid float "not null"
+	    tipo_elemento String "not null"
+    }
+
+    PECAS_USADAS {
+        NUM_OS int FK "not null"
+        ID_PECAS int FK "not null"
+        QUANT_PECAS int "0"
+        
+    }
+
+
+    %% LIGAÇÕES DE CATEGORIZAÇÃO (1:1)
+    USUARIOS ||--o| CLIENTES : "é_um"
+    USUARIOS ||--o| FUNCIONARIOS : "é_um" 
+    
+    %% LIGAÇÕES PRINCIPAIS (1:N)
+    FUNCIONARIOS ||--o{ ORDEM_DE_SERVICOS : "é_responsavel_por"
+    CLIENTES ||--o{ ORDEM_DE_SERVICOS : "solicita"
+
+    %% LIGAÇÕES M:N
+    ORDEM_DE_SERVICOS ||--|{ PECAS_USADAS : "contém"
+    PECAS ||--|{ PECAS_USADAS : "está_em"
+    
+   
+    
+
+
+
+   
+    
